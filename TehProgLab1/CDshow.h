@@ -1,4 +1,4 @@
-#define S 0
+#define S 1
 #include <fstream>
 #include <cstring>
 #include <iostream>

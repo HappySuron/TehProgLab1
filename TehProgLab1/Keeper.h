@@ -7,7 +7,7 @@ class Keeper
 public:
 	Animal** MAS;
 	int countMass;
-	void Create();
+
 public:
 	Keeper() {
 		try {
@@ -26,7 +26,9 @@ public:
 		}
 		if (S == 1)	 std::cout << "Keeper const realesed" << std::endl;
 	}
-	Keeper(int size) : countMass(size) { Create(); };
+
+	//Keeper(const Keeper& other);
+
 	~Keeper() { 
 		for (int i = 0; i < countMass; ++i) {
 		delete MAS[i];

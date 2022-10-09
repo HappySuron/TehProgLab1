@@ -16,7 +16,22 @@ void Keeper::show() {
 		this->MAS[i]->show();
 	}
 }
-
+/*
+Keeper::Keeper(const Keeper& other) {
+	this->countMass = other.countMass;
+	this->MAS = new Animal * [countMass];
+	for (int i = 0; i < other.countMass; i ++) {
+		if (other.MAS[i]->get_type() == "Fish")
+		{
+			this->MAS[i] = new Fish(dynamic_cast<Fish*>(other.MAS[i]));
+		}
+		if (other.MAS[i]->get_type() == "Bird")
+			this->MAS[i] = new Bird();
+		if (other.MAS[i]->get_type() == "Cat")
+			this->MAS[i] = new Cat();
+	}
+}
+*/
 std::ostream& operator<<(std::ostream& os, const Keeper& KP)
 {
 	for (int i = 0; i < KP.countMass; i++) {
@@ -26,9 +41,6 @@ std::ostream& operator<<(std::ostream& os, const Keeper& KP)
 	return os;
 }
 
-void Keeper::Create() {
-		MAS = new Animal * [countMass];
-}
 
 void Keeper::takeData() {
 	std::ifstream workFile;
@@ -52,6 +64,42 @@ void Keeper::takeData() {
 		FHcounter = 0;
 		if (workFile.peek() == std::ifstream::traits_type::eof())
 			throw "empty";
+		////////////////
+		while (!workFile.eof()) {
+			FHstr = "";
+			getline(workFile, FHstr);
+			std::strcpy(FHchars, FHstr.c_str());
+			char* pch = strtok(FHchars, " ");
+			//std::cout << pch;
+			if (!strcmp(pch, "Fish")) {
+				if (pch != NULL) pch = strtok(NULL, " "); else throw 404;
+				if (pch != NULL) pch = strtok(NULL, " "); else throw 404;
+				if (pch != NULL) pch = strtok(NULL, " "); else throw 404;
+				//	this->MAS[FHcounter]->show();
+			}
+
+			else if (!strcmp(pch, "Bird")) {
+				if (pch != NULL) pch = strtok(NULL, " "); else throw 404;
+				if (pch != NULL) pch = strtok(NULL, " "); else throw 404;
+				if (pch != NULL) pch = strtok(NULL, " "); else throw 404;
+				if (pch != NULL) pch = strtok(NULL, " "); else throw 404;
+				//	this->MAS[FHcounter]->show();
+			}
+
+			else if (!strcmp(pch, "Cat")) {
+				if (pch != NULL) pch = strtok(NULL, " "); else throw 404;
+				if (pch != NULL) pch = strtok(NULL, " "); else throw 404;
+				if (pch != NULL) pch = strtok(NULL, " "); else throw 404;
+				if (pch != NULL) pch = strtok(NULL, " "); else throw 404;
+				//	this->MAS[FHcounter]->show();
+			}
+			else {
+				throw 404;
+			}
+		}
+		workFile.close();
+		workFile.open("myFile.txt");
+			////////////////////////////////
 		while (!workFile.eof()) {
 			FHstr = "";
 			getline(workFile, FHstr);
@@ -62,9 +110,9 @@ void Keeper::takeData() {
 				std::string breed;
 				std::string color;
 				std::string food;
-				if (!workFile.eof())	breed = strtok(NULL, " "); else throw 404;
-				if (!workFile.eof())	color = strtok(NULL, " "); else throw 404;
-				if (!workFile.eof())	food = strtok(NULL, " "); else throw 404;
+				breed = strtok(NULL, " ");
+				color = strtok(NULL, " ");
+				food = strtok(NULL, " ");
 				this->MAS[FHcounter] = new Fish(breed, color, food);
 				//	this->MAS[FHcounter]->show();
 			}
@@ -74,10 +122,10 @@ void Keeper::takeData() {
 				std::string color;
 				std::string food;
 				std::string location;
-				if (!workFile.eof())	breed = strtok(NULL, " "); else throw 404;
-				if (!workFile.eof())	color = strtok(NULL, " "); else throw 404;
-				if (!workFile.eof())	food = strtok(NULL, " "); else throw 404;
-				if (!workFile.eof())	location = strtok(NULL, " "); else throw 404;
+				breed = strtok(NULL, " ");
+				color = strtok(NULL, " ");
+				food = strtok(NULL, " ");
+				if (pch != NULL) location = strtok(NULL, " ");
 				this->MAS[FHcounter] = new Bird(breed, color, food, location);
 				//	this->MAS[FHcounter]->show();
 			}
@@ -87,16 +135,14 @@ void Keeper::takeData() {
 				std::string color;
 				std::string owner;
 				std::string name;
-				if (!workFile.eof())	breed = strtok(NULL, " "); else throw 404;
-				if (!workFile.eof())	color = strtok(NULL, " "); else throw 404;
-				if (!workFile.eof())	owner = strtok(NULL, " "); else throw 404;
-				if (!workFile.eof())	name = strtok(NULL, " "); else throw 404;
+				breed = strtok(NULL, " ");
+				color = strtok(NULL, " ");
+				owner = strtok(NULL, " ");
+				name = strtok(NULL, " ");
 				this->MAS[FHcounter] = new Cat(breed, color, owner, name);
 				//	this->MAS[FHcounter]->show();
 			}
-			else {
-				throw 404;
-			}
+			
 			FHcounter++;
 			/*
 			while (pch != NULL)
@@ -129,7 +175,8 @@ void Keeper::saveData() {
 		if (this->MAS[i]->get_type() == "Cat") {
 			workFile << this->MAS[i]->get_type() << " " << this->MAS[i]->get_breed() << " " << this->MAS[i]->get_color() << " " << dynamic_cast<Cat*>(this->MAS[i])->get_owner() << " " << dynamic_cast<Cat*>(this->MAS[i])->get_name();
 		}
-		if (i != countMass-1) workFile << std::endl;
+		if (i != countMass-1)
+			workFile << std::endl;
 	}
 
 	workFile.close();
