@@ -75,6 +75,7 @@ void Keeper::takeData() {
 				if (pch != NULL) pch = strtok(NULL, " "); else throw 404;
 				if (pch != NULL) pch = strtok(NULL, " "); else throw 404;
 				if (pch != NULL) pch = strtok(NULL, " "); else throw 404;
+				if (pch == NULL) throw 404;
 				//	this->MAS[FHcounter]->show();
 			}
 
@@ -83,6 +84,7 @@ void Keeper::takeData() {
 				if (pch != NULL) pch = strtok(NULL, " "); else throw 404;
 				if (pch != NULL) pch = strtok(NULL, " "); else throw 404;
 				if (pch != NULL) pch = strtok(NULL, " "); else throw 404;
+				if (pch == NULL) throw 404;
 				//	this->MAS[FHcounter]->show();
 			}
 
@@ -91,6 +93,7 @@ void Keeper::takeData() {
 				if (pch != NULL) pch = strtok(NULL, " "); else throw 404;
 				if (pch != NULL) pch = strtok(NULL, " "); else throw 404;
 				if (pch != NULL) pch = strtok(NULL, " "); else throw 404;
+				if (pch == NULL) throw 404;
 				//	this->MAS[FHcounter]->show();
 			}
 			else {
